@@ -93,17 +93,17 @@ impl Widget for Writable<'_> {
     }
 }
 
-fn button(ui: &mut Ui, text: &str, source: &str, target: Option<String>) -> Option<String> {
-    // let attribute = ui.try_localize(&format!("{id}.{attribute}"));
-    ui.add_enabled_ui(target.is_some(), |ui| {
-        let mut atom = RichText::new(text);
-        if matches!(&target, Some(target) if source == target) {
-            atom = atom.strong();
-        }
-        if ui.button((PENCIL, atom)).clicked() {
-            return target;
-        }
-        None
-    })
-    .inner
-}
+// fn button(ui: &mut Ui, id: &str, attribute: &str, source: &str) -> Option<String> {
+//     let target = ui.try_localize(&format!("{id}.{}", attribute.to_lowercase()));
+//     ui.add_enabled_ui(target.is_some(), |ui| {
+//         let mut atom = RichText::new(ui.localize(attribute));
+//         if matches!(&target, Some(target) if source == target) {
+//             atom = atom.strong();
+//         }
+//         if ui.button((PENCIL, atom)).clicked() {
+//             return target;
+//         }
+//         None
+//     })
+//     .inner
+// }
