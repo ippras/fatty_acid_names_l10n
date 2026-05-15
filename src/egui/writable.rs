@@ -26,20 +26,20 @@ impl Writable<'_> {
         let mut changed = false;
         response.context_menu(|ui| {
             let id = self.id;
-            if ui.button((PENCIL, ABBREVIATION)).clicked()
-                && let Some(name) = ui.try_localize(&format!("{id}.abbreviation"))
+            if let Some(name) = ui.try_localize(&format!("{id}.abbreviation"))
+                && ui.button((PENCIL, ABBREVIATION)).clicked()
             {
                 text = name;
                 changed = true;
             }
-            if ui.button((PENCIL, formatcp!("{COMMON} name"))).clicked()
-                && let Some(name) = ui.try_localize(&format!("{id}.common"))
+            if let Some(name) = ui.try_localize(&format!("{id}.common"))
+                && ui.button((PENCIL, formatcp!("{COMMON} name"))).clicked()
             {
                 text = name;
                 changed = true;
             }
-            if ui.button((PENCIL, formatcp!("{IUPAC} name"))).clicked()
-                && let Some(name) = ui.try_localize(&format!("{id}.common"))
+            if let Some(name) = ui.try_localize(&format!("{id}.iupac"))
+                && ui.button((PENCIL, formatcp!("{IUPAC} name"))).clicked()
             {
                 text = name;
                 changed = true;
