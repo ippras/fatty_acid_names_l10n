@@ -30,8 +30,8 @@ impl Writable<'_> {
             let abbreviation = ui.try_localize(&format!("{id}.abbreviation"));
             ui.add_enabled_ui(abbreviation.is_some(), |ui| {
                 let mut atom = RichText::new(ABBREVIATION);
-                if abbreviation.as_ref() == Some(&text) {
-                    atom = atom.weak();
+                if Some(&text) == abbreviation.as_ref() {
+                    atom = atom.strong();
                 }
                 if ui.button((PENCIL, atom)).clicked()
                     && let Some(abbreviation) = abbreviation
