@@ -29,7 +29,7 @@ impl Writable<'_> {
 
             let abbreviation = ui.try_localize(&format!("{id}.{}", ABBREVIATION.to_lowercase()));
             ui.add_enabled_ui(abbreviation.is_some(), |ui| {
-                let mut atom = RichText::new(ABBREVIATION);
+                let mut atom = RichText::new(ui.localize(ABBREVIATION));
                 if matches!(&abbreviation, Some(abbreviation) if &text == abbreviation) {
                     atom = atom.strong();
                 }
@@ -43,7 +43,7 @@ impl Writable<'_> {
 
             let common = ui.try_localize(&format!("{id}.{}", COMMON.to_lowercase()));
             ui.add_enabled_ui(common.is_some(), |ui| {
-                let mut atom = RichText::new(formatcp!("{COMMON}{NAME}"));
+                let mut atom = RichText::new(ui.localize(formatcp!("{COMMON}{NAME}")));
                 if matches!(&common, Some(common) if &text == common) {
                     atom = atom.strong();
                 }
@@ -57,7 +57,7 @@ impl Writable<'_> {
 
             let iupac = ui.try_localize(&format!("{id}.{}", IUPAC.to_lowercase()));
             ui.add_enabled_ui(iupac.is_some(), |ui| {
-                let mut atom = RichText::new(formatcp!("{IUPAC}{NAME}"));
+                let mut atom = RichText::new(ui.localize(formatcp!("{IUPAC}{NAME}")));
                 if matches!(&iupac, Some(iupac) if &text == iupac) {
                     atom = atom.strong();
                 }
@@ -69,7 +69,7 @@ impl Writable<'_> {
                 }
             });
 
-            if ui.button((ERASER, EMPTY)).clicked() {
+            if ui.button((ERASER, ui.localize(EMPTY))).clicked() {
                 text = String::new();
                 changed = true;
             }
