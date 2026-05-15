@@ -1,7 +1,7 @@
 use crate::egui::{ABBREVIATION, COMMON, IUPAC, names::Names};
 
 use const_format::formatcp;
-use egui::{Button, InnerResponse, Response, Ui, Widget};
+use egui::{Button, InnerResponse, Response, RichText, Ui, Widget};
 use egui_l20n::UiExt as _;
 use egui_phosphor::regular::{ERASER, PENCIL};
 use typed_builder::TypedBuilder;
@@ -29,10 +29,11 @@ impl Writable<'_> {
 
             let abbreviation = ui.try_localize(&format!("{id}.abbreviation"));
             ui.add_enabled_ui(abbreviation.is_some(), |ui| {
+                let mut atom = RichText::new(ABBREVIATION);
                 if abbreviation.as_ref() == Some(&text) {
-                    ui.visuals_mut().override_text_color = ui.visuals().weak_text_color;
+                    atom = atom.weak();
                 }
-                if ui.button((PENCIL, ABBREVIATION)).clicked()
+                if ui.button((PENCIL, atom)).clicked()
                     && let Some(abbreviation) = abbreviation
                 {
                     text = abbreviation;
