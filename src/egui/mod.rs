@@ -10,6 +10,7 @@ use typed_builder::TypedBuilder;
 pub const ABBREVIATION: &str = "Abbreviation";
 pub const COMMON: &str = "Common";
 pub const IUPAC: &str = "IUPAC";
+pub const NAME: &str = "Name";
 pub const NAMES: &str = "Names";
 
 /// Name widget
