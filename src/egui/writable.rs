@@ -29,6 +29,9 @@ impl Writable<'_> {
 
             let abbreviation = ui.try_localize(&format!("{id}.abbreviation"));
             ui.add_enabled_ui(abbreviation.is_some(), |ui| {
+                if abbreviation == Some(text) {
+                    ui.visuals_mut().override_text_color = ui.visuals().weak_text_color;
+                }
                 if ui.button((PENCIL, ABBREVIATION)).clicked()
                     && let Some(abbreviation) = abbreviation
                 {
