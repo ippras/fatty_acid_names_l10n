@@ -1,7 +1,6 @@
 use crate::egui::names::Names;
 
 use egui::{InnerResponse, Response, Ui, Widget};
-use egui_l20n::UiExt as _;
 use typed_builder::TypedBuilder;
 
 /// Writable name widget
@@ -10,14 +9,16 @@ pub struct Writable<'a> {
     id: &'a str,
     #[builder(default = true)]
     hover: bool,
+    #[builder(default, setter(strip_option))]
+    text: Option<&'a str>,
 }
 
 impl Writable<'_> {
     pub fn show(self, ui: &mut Ui) -> InnerResponse<Option<String>> {
-        let mut text = ui.localize(self.id);
+        let mut text = self.text.unwrap_or_default();
         let mut response = ui.text_edit_singleline(&mut text);
         if response.changed() {
-            return InnerResponse::new(Some(text), response);
+            return InnerResponse::new(Some(text.to_string()), response);
         }
         if self.hover {
             response = response.on_hover_ui(|ui| {

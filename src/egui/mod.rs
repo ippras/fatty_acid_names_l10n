@@ -14,9 +14,18 @@ pub const NAMES: &str = "Names";
 
 /// Name widget
 #[derive(Debug, PartialEq, TypedBuilder)]
-#[builder(builder_method(vis="", name=_builder))]
 pub struct Name<'a> {
     id: &'a str,
+}
+
+impl<'a> NameBuilder<'a, ((&'a str,),)> {
+    pub fn readable(self) -> ReadableBuilder<'a, ((&'a str,), (), (), ())> {
+        Readable::builder().id(self.fields.0.0)
+    }
+
+    pub fn writable(self) -> WritableBuilder<'a, ((&'a str,), (), ())> {
+        Writable::builder().id(self.fields.0.0)
+    }
 }
 
 impl<'a> Name<'a> {

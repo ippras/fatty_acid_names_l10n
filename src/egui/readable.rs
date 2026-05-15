@@ -1,7 +1,6 @@
 use crate::egui::names::Names;
 
 use egui::{Label, Response, Ui, Widget};
-use egui_l20n::UiExt as _;
 use typed_builder::TypedBuilder;
 
 /// Readable name widget
@@ -10,13 +9,15 @@ pub struct Readable<'a> {
     id: &'a str,
     #[builder(default = true)]
     hover: bool,
+    #[builder(default, setter(strip_option))]
+    text: Option<&'a str>,
     #[builder(default)]
     truncate: bool,
 }
 
 impl Readable<'_> {
     pub fn show(self, ui: &mut Ui) -> Response {
-        let text = ui.localize(self.id);
+        let text = self.text.unwrap_or_default();
         let mut label = Label::new(text);
         if self.truncate {
             label = label.truncate();
