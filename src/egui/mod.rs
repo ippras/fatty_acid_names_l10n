@@ -9,7 +9,8 @@ use typed_builder::TypedBuilder;
 
 pub const ABBREVIATION: &str = "Abbreviation";
 pub const COMMON: &str = "Common";
-pub const IUPAC: &str = "IUPAC";
+pub const EMPTY: &str = "Empty";
+pub const IUPAC: &str = "Iupac";
 pub const NAME: &str = "Name";
 pub const NAMES: &str = "Names";
 

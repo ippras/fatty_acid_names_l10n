@@ -1,4 +1,4 @@
-use crate::egui::{ABBREVIATION, COMMON, IUPAC, NAME, names::Names};
+use crate::egui::{ABBREVIATION, COMMON, EMPTY, IUPAC, NAME, names::Names};
 
 use const_format::formatcp;
 use egui::{InnerResponse, Response, RichText, Ui, Widget};
@@ -69,7 +69,7 @@ impl Writable<'_> {
                 }
             });
 
-            if ui.button((ERASER, "Empty string")).clicked() {
+            if ui.button((ERASER, EMPTY)).clicked() {
                 text = String::new();
                 changed = true;
             }
