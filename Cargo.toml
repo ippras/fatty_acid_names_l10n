@@ -5,7 +5,9 @@ authors = ["Giorgi Vladimirovich Kazakov", "Roman Alexandrovich Sidorov"]
 edition = "2024"
 
 [dependencies]
+const_format = "0.2.36"
 egui = { version = "0.34.1", optional = true }
+egui-phosphor = "0.12.0"
 egui_l20n = { git = "https://github.com/kgv/egui_l20n", branch = "0.6", features = [
     "macros",
 ] }
