@@ -17,11 +17,11 @@ pub struct Writable<'a> {
 }
 
 impl Writable<'_> {
-    pub fn show(self, ui: &mut Ui) -> InnerResponse<Option<String>> {
+    pub fn show(self, ui: &mut Ui) -> InnerResponse<String> {
         let mut text = self.text.unwrap_or_default();
         let mut response = ui.text_edit_singleline(&mut text);
         if response.changed() {
-            return InnerResponse::new(Some(text.to_string()), response);
+            return InnerResponse::new(text, response);
         }
         let mut changed = false;
         response.context_menu(|ui| {
@@ -51,14 +51,14 @@ impl Writable<'_> {
         });
         if changed {
             response.mark_changed();
-            return InnerResponse::new(Some(text.to_string()), response);
+            return InnerResponse::new(text, response);
         }
         if self.hover {
             response = response.on_hover_ui(|ui| {
                 Names::builder().id(self.id).build().ui(ui);
             });
         }
-        InnerResponse::new(None, response)
+        InnerResponse::new(text, response)
     }
 }
 
