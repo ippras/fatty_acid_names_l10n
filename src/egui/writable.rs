@@ -1,8 +1,8 @@
 use crate::egui::{ABBREVIATION, COMMON, IUPAC, names::Names};
 
 use const_format::formatcp;
-use egui::{InnerResponse, Response, Ui, Widget};
-use egui_l20n::UiExt;
+use egui::{Button, InnerResponse, Response, Ui, Widget};
+use egui_l20n::UiExt as _;
 use egui_phosphor::regular::{ERASER, PENCIL};
 use typed_builder::TypedBuilder;
 
@@ -26,24 +26,37 @@ impl Writable<'_> {
         let mut changed = false;
         response.context_menu(|ui| {
             let id = self.id;
-            if let Some(name) = ui.try_localize(&format!("{id}.abbreviation"))
-                && ui.button((PENCIL, ABBREVIATION)).clicked()
-            {
-                text = name;
-                changed = true;
-            }
-            if let Some(name) = ui.try_localize(&format!("{id}.common"))
-                && ui.button((PENCIL, formatcp!("{COMMON} name"))).clicked()
-            {
-                text = name;
-                changed = true;
-            }
-            if let Some(name) = ui.try_localize(&format!("{id}.iupac"))
-                && ui.button((PENCIL, formatcp!("{IUPAC} name"))).clicked()
-            {
-                text = name;
-                changed = true;
-            }
+
+            let abbreviation = ui.try_localize(&format!("{id}.abbreviation"));
+            ui.add_enabled_ui(abbreviation.is_some(), |ui| {
+                if ui.button((PENCIL, ABBREVIATION)).clicked()
+                    && let Some(abbreviation) = abbreviation
+                {
+                    text = abbreviation;
+                    changed = true;
+                }
+            });
+
+            let common = ui.try_localize(&format!("{id}.common"));
+            ui.add_enabled_ui(common.is_some(), |ui| {
+                if ui.button((PENCIL, formatcp!("{COMMON} name"))).clicked()
+                    && let Some(common) = common
+                {
+                    text = common;
+                    changed = true;
+                }
+            });
+
+            let iupac = ui.try_localize(&format!("{id}.iupac"));
+            ui.add_enabled_ui(iupac.is_some(), |ui| {
+                if ui.button((PENCIL, formatcp!("{IUPAC} name"))).clicked()
+                    && let Some(iupac) = iupac
+                {
+                    text = iupac;
+                    changed = true;
+                }
+            });
+
             if ui.button((ERASER, "Empty string")).clicked() {
                 text = String::new();
                 changed = true;
