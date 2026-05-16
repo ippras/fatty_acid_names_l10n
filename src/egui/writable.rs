@@ -1,7 +1,7 @@
 use crate::egui::{ABBREVIATION, COMMON, EMPTY, IUPAC, NAME, names::Names};
 
 use const_format::formatcp;
-use egui::{InnerResponse, Response, RichText, Ui, Widget};
+use egui::{Response, RichText, Ui, Widget};
 use egui_l20n::UiExt as _;
 use egui_phosphor::regular::{ERASER, PENCIL};
 use typed_builder::TypedBuilder;
@@ -10,19 +10,14 @@ use typed_builder::TypedBuilder;
 #[derive(TypedBuilder)]
 pub struct Writable<'a> {
     id: &'a str,
+    text: &'a mut String,
     #[builder(default = true)]
     hover: bool,
-    #[builder(default, setter(strip_option))]
-    text: Option<String>,
 }
 
 impl Writable<'_> {
-    pub fn show(self, ui: &mut Ui) -> InnerResponse<String> {
-        let mut text = self.text.unwrap_or_default();
-        let mut response = ui.text_edit_singleline(&mut text);
-        if response.changed() {
-            return InnerResponse::new(text, response);
-        }
+    pub fn show(self, ui: &mut Ui) -> Response {
+        let mut response = ui.text_edit_singleline(self.text);
         let mut changed = false;
         response.context_menu(|ui| {
             let id = self.id;
@@ -30,13 +25,13 @@ impl Writable<'_> {
             let abbreviation = ui.try_localize(&format!("{id}.{}", ABBREVIATION.to_lowercase()));
             ui.add_enabled_ui(abbreviation.is_some(), |ui| {
                 let mut atom = RichText::new(ui.localize(ABBREVIATION));
-                if matches!(&abbreviation, Some(abbreviation) if &text == abbreviation) {
+                if matches!(&abbreviation, Some(abbreviation) if self.text == abbreviation) {
                     atom = atom.strong();
                 }
                 if ui.button((PENCIL, atom)).clicked()
                     && let Some(abbreviation) = abbreviation
                 {
-                    text = abbreviation;
+                    *self.text = abbreviation;
                     changed = true;
                 }
             });
@@ -44,13 +39,13 @@ impl Writable<'_> {
             let common = ui.try_localize(&format!("{id}.{}", COMMON.to_lowercase()));
             ui.add_enabled_ui(common.is_some(), |ui| {
                 let mut atom = RichText::new(ui.localize(formatcp!("{COMMON}{NAME}")));
-                if matches!(&common, Some(common) if &text == common) {
+                if matches!(&common, Some(common) if self.text == common) {
                     atom = atom.strong();
                 }
                 if ui.button((PENCIL, atom)).clicked()
                     && let Some(common) = common
                 {
-                    text = common;
+                    *self.text = common;
                     changed = true;
                 }
             });
@@ -58,38 +53,37 @@ impl Writable<'_> {
             let iupac = ui.try_localize(&format!("{id}.{}", IUPAC.to_lowercase()));
             ui.add_enabled_ui(iupac.is_some(), |ui| {
                 let mut atom = RichText::new(ui.localize(formatcp!("{IUPAC}{NAME}")));
-                if matches!(&iupac, Some(iupac) if &text == iupac) {
+                if matches!(&iupac, Some(iupac) if self.text == iupac) {
                     atom = atom.strong();
                 }
                 if ui.button((PENCIL, atom)).clicked()
                     && let Some(iupac) = iupac
                 {
-                    text = iupac;
+                    *self.text = iupac;
                     changed = true;
                 }
             });
 
             if ui.button((ERASER, ui.localize(EMPTY))).clicked() {
-                text = String::new();
+                *self.text = String::new();
                 changed = true;
             }
         });
         if changed {
             response.mark_changed();
-            return InnerResponse::new(text, response);
         }
         if self.hover {
             response = response.on_hover_ui(|ui| {
                 Names::builder().id(self.id).build().ui(ui);
             });
         }
-        InnerResponse::new(text, response)
+        response
     }
 }
 
 impl Widget for Writable<'_> {
     fn ui(self, ui: &mut Ui) -> Response {
-        self.show(ui).response
+        self.show(ui)
     }
 }
 
