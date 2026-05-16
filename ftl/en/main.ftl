@@ -1,7 +1,7 @@
 Abbreviation = Abbreviation
 Common = Common
 CommonName = Common name
-Empty = Empty
+Erase = Erase
 Iupac = IUPAC
 IupacName = IUPAC name
 Name = Name

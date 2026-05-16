@@ -1,7 +1,7 @@
 Abbreviation = Аббревиатура
 Common = Общие
 CommonName = Общее название
-Empty = Очистить
+Erase = Стереть
 Iupac = IUPAC
 IupacName = Название по IUPAC
 Name = Название
