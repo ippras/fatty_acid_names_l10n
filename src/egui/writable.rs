@@ -38,7 +38,8 @@ impl Writable<'_> {
 
             let common = ui.try_localize(&format!("{id}.{}", COMMON.to_lowercase()));
             ui.add_enabled_ui(common.is_some(), |ui| {
-                let mut atom = RichText::new(ui.localize(formatcp!("{COMMON}{NAME}")));
+                let mut atom =
+                    RichText::new(ui.localize(formatcp!("{COMMON}{NAME}?PluralCategory=one")));
                 if matches!(&common, Some(common) if self.text == common) {
                     atom = atom.strong();
                 }
@@ -52,7 +53,8 @@ impl Writable<'_> {
 
             let iupac = ui.try_localize(&format!("{id}.{}", IUPAC.to_lowercase()));
             ui.add_enabled_ui(iupac.is_some(), |ui| {
-                let mut atom = RichText::new(ui.localize(formatcp!("{IUPAC}{NAME}")));
+                let mut atom =
+                    RichText::new(ui.localize(formatcp!("{IUPAC}{NAME}?PluralCategory=one")));
                 if matches!(&iupac, Some(iupac) if self.text == iupac) {
                     atom = atom.strong();
                 }
