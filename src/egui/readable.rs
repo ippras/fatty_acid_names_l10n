@@ -7,18 +7,16 @@ use typed_builder::TypedBuilder;
 #[derive(TypedBuilder)]
 pub struct Readable<'a> {
     id: &'a str,
+    text: &'a str,
     #[builder(default = true)]
     hover: bool,
-    #[builder(default, setter(strip_option))]
-    text: Option<&'a str>,
     #[builder(default)]
     truncate: bool,
 }
 
 impl Readable<'_> {
     pub fn show(self, ui: &mut Ui) -> Response {
-        let text = self.text.unwrap_or_default();
-        let mut label = Label::new(text);
+        let mut label = Label::new(self.text);
         if self.truncate {
             label = label.truncate();
         }
