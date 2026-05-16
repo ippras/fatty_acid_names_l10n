@@ -15,6 +15,7 @@ pub const fn content(language: &str) -> &'static [&'static str] {
     match language {
         EN => &[
             asset!("/ftl/en/main.ftl"),
+            asset!("/ftl/en/main.selectors.ftl"),
             asset!("/ftl/en/aocs.org.ftl"),
             asset!("/ftl/en/aocs.org.ext.ftl"),
         ],
