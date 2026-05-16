@@ -11,8 +11,15 @@ pub const fn content(language: &str) -> &'static [&'static str] {
             asset!("/ftl/en/aocs.org.ftl"),
             asset!("/ftl/en/aocs.org.ext.ftl"),
         ],
-        RU => &[asset!("/ftl/ru/main.ftl"), asset!("/ftl/ru/aocs.org.ftl")],
-        _ => &[asset!("/ftl/en/aocs.org.ftl")],
+        RU => &[
+            asset!("/ftl/ru/main.ftl"),
+            asset!("/ftl/en/aocs.org.ftl"),
+            asset!("/ftl/en/aocs.org.ext.ftl"),
+        ],
+        _ => &[
+            asset!("/ftl/en/aocs.org.ftl"),
+            asset!("/ftl/en/aocs.org.ext.ftl"),
+        ],
     }
 }
 
