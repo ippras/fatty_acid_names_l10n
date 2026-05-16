@@ -1,4 +1,4 @@
-use super::{ABBREVIATION, COMMON, IUPAC, NAMES};
+use crate::{ABBREVIATION, COMMON, IUPAC, NAMES};
 use egui::{Grid, Response, Ui, Widget};
 use egui_l20n::UiExt as _;
 use typed_builder::TypedBuilder;

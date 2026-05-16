@@ -7,13 +7,6 @@ use crate::egui::{
 
 use typed_builder::TypedBuilder;
 
-pub const ABBREVIATION: &str = "Abbreviation";
-pub const COMMON: &str = "Common";
-pub const EMPTY: &str = "Empty";
-pub const IUPAC: &str = "Iupac";
-pub const NAME: &str = "Name";
-pub const NAMES: &str = "Names";
-
 /// Name widget
 #[derive(Debug, PartialEq, TypedBuilder)]
 pub struct Name<'a> {

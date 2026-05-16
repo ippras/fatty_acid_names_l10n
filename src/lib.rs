@@ -4,6 +4,13 @@
 pub const EN: &str = "en";
 pub const RU: &str = "ru";
 
+pub const ABBREVIATION: &str = "Abbreviation";
+pub const COMMON: &str = "Common";
+pub const EMPTY: &str = "Empty";
+pub const IUPAC: &str = "Iupac";
+pub const NAME: &str = "Name";
+pub const NAMES: &str = "Names";
+
 pub const fn content(language: &str) -> &'static [&'static str] {
     match language {
         EN => &[

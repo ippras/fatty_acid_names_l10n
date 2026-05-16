@@ -1,4 +1,4 @@
-use crate::egui::{ABBREVIATION, COMMON, EMPTY, IUPAC, NAME, names::Names};
+use crate::{ABBREVIATION, COMMON, EMPTY, IUPAC, NAME, egui::names::Names};
 
 use const_format::formatcp;
 use egui::{Response, RichText, Ui, Widget};
