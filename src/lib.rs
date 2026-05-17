@@ -11,7 +11,7 @@ pub const IUPAC: &str = "Iupac";
 pub const NAME: &str = "Name";
 pub const NAMES: &str = "Names";
 
-pub const fn content(language: &str) -> &'static [&'static str] {
+pub const fn sources(language: &str) -> &'static [&'static str] {
     match language {
         EN => &[
             asset!("/ftl/en/main.ftl"),
